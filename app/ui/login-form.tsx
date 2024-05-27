@@ -1,6 +1,6 @@
 'use client';
 
-import { authenticate } from '@/app/lib/actions';
+// import { authenticate } from '@/app/lib/actions';
 import { inter } from '@/app/ui/fonts';
 import {
   AtSymbolIcon,
@@ -12,10 +12,10 @@ import { Button } from './button';
 import { useFormState, useFormStatus } from 'react-dom';
 
 export default function LoginForm() {
-  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+  // const [errorMessage, dispatch] = useFormState(authenticate, undefined);
 
   return (
-    <form action={dispatch} className="space-y-3">
+    <form className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8 border border-2">
         <h1 className={`${inter.className} mb-3 text-2xl text-black`}>
           Log in
@@ -68,12 +68,12 @@ export default function LoginForm() {
           aria-live="polite"
           aria-atomic="true"
         >
-          {errorMessage && (
+          {/* {errorMessage && (
             <>
               <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
               <p className="text-sm text-red-500">{errorMessage}</p>
             </>
-          )}
+          )} */}
         </div>
       </div>
     </form>
