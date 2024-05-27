@@ -202,12 +202,13 @@ export default function Footer() {
                   />
                 </div>
               </div>
-                <a
-                href="#"
+              <Link
+                key="register"
+                href="/register"
                 className="w-1/3 rounded-md bg-equitaryPrimary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-equitaryPrimaryHover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Sign Up - Get Access
-              </a>
+                >
+                  Sign Up - Get Access
+                </Link>
             </div>
             
         </div>
