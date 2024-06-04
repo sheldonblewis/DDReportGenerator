@@ -1,10 +1,6 @@
 "use client";
 import Image from "next/image";
-import { inter } from '@/app/ui/fonts';
 import { useState } from 'react'
-import { Dialog } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import EquitaryLogo from '@/app/ui/equitary-logo';
 import { ShieldCheckIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Header from "@/app/ui/global-components/header";
@@ -14,7 +10,7 @@ import { IsUnderConstruction } from '@/app/lib/definitions';
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  if (!IsUnderConstruction) return  (
+  if (!IsUnderConstruction && status === 'unauthenticated') return  (
     <main>
       
         {/* Home Page Landing - section */}

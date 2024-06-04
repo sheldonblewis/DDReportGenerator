@@ -1,4 +1,3 @@
-
 import Header from "@/app/ui/global-components/header";
 import Footer from "@/app/ui/global-components/footer";
 import Image from "next/image";
