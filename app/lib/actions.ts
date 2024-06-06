@@ -94,7 +94,9 @@ export async function authenticate(
     password: ${process.env.NEXT_PUBLIC_POSTGRES_PASSWORD} \n
     host: ${process.env.NEXT_PUBLIC_POSTGRES_HOST} \n
     port: 5432 \n
-    database: 'postgres'`);
+    database: 'postgres' \n
+    auth_url: ${process.env.NEXTAUTH_URL} \n
+    auth_secret: ${process.env.NEXTAUTH_SECRET}`);
     await signIn('credentials', formData);
   } catch (error) {
     if (error instanceof AuthError) {
