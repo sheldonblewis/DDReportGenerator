@@ -89,6 +89,12 @@ export async function authenticate(
 ) {
   try {
     console.log(`trying to sign in ${formData}`);
+    console.log(`
+    user: 'postgres' \n
+    password: ${process.env.NEXT_PUBLIC_POSTGRES_PASSWORD} \n
+    host: ${process.env.NEXT_PUBLIC_POSTGRES_HOST} \n
+    port: 5432 \n
+    database: 'postgres'`);
     await signIn('credentials', formData);
   } catch (error) {
     if (error instanceof AuthError) {
