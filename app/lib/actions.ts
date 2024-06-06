@@ -43,7 +43,7 @@ export async function createJob(prevState: State, formData: FormData) {
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Create Invoice.',
+      message: 'Missing Fields. Failed to Create Job.',
     };
   }
 
@@ -73,7 +73,7 @@ export async function createJob(prevState: State, formData: FormData) {
   // } catch (error) {
   //   // If a database error occurs, return a more specific error.
   //   return {
-  //     message: 'Database Error: Failed to Create Invoice.',
+  //     message: 'Database Error: Failed to Create Job.',
   //   };
   // }
 
