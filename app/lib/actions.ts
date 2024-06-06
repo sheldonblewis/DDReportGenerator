@@ -38,7 +38,7 @@ export async function createJob(prevState: State, formData: FormData) {
     balanceSheet: formData.get('balanceSheet'),
     cashFlowStatement: formData.get('cashFlowStatement'),
   });
-
+  
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
@@ -46,6 +46,7 @@ export async function createJob(prevState: State, formData: FormData) {
       message: 'Missing Fields. Failed to Create Job.',
     };
   }
+  console.log(validatedFields.data);
 
   // Prepare data for insertion into the database
   const { incomeStatement, balanceSheet, cashFlowStatement } = validatedFields.data;
@@ -54,9 +55,6 @@ export async function createJob(prevState: State, formData: FormData) {
   const encodedIncomeStatement = encodeURIComponent(incomeStatement.name);
   const encodedBalanceSheet = encodeURIComponent(balanceSheet.name);
   const encodedCfStatement = encodeURIComponent(cashFlowStatement.name);
-  console.log('------ income statement ------');
-  console.log(incomeStatement);
-  console.log(encodedIncomeStatement);
 
   // if (incomeStatement || balanceSheet || cashFlowStatement) {
     // wixLocation.to(`/due-diligence-report-page?income_statement=${encodedIncomeStatement}&balance_sheet=${encodedBalanceSheet}&cf_statement=${encodedCfStatement}`);
@@ -88,15 +86,6 @@ export async function authenticate(
   formData: FormData,
 ) {
   try {
-    console.log(`trying to sign in ${formData}`);
-    console.log(`
-    user: 'postgres' \n
-    password: ${process.env.NEXT_PUBLIC_POSTGRES_PASSWORD} \n
-    host: ${process.env.NEXT_PUBLIC_POSTGRES_HOST} \n
-    port: 5432 \n
-    database: 'postgres' \n
-    auth_url: ${process.env.NEXTAUTH_URL} \n
-    auth_secret: ${process.env.NEXTAUTH_SECRET}`);
     await signIn('credentials', formData);
   } catch (error) {
     if (error instanceof AuthError) {

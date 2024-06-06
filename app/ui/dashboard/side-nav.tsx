@@ -17,22 +17,16 @@ export default function SideNav() {
       </div>
 
       <div className="sticky inset-x-0 bottom-0 border-t border-gray-100">
-        <a
-          href="#"
-          className="flex items-center gap-2 bg-white p-4 hover:bg-gray-50"
-        >
-          <div>
-            
-            <form
-              action={async () => {
-                "use server";
-                await signOut();
-              }}
-            >
-              <button className="mt-4 w-full text-black">Sign out</button>
-            </form>
-          </div>
-        </a>
+        <div className="flex items-center gap-2 bg-white p-4 hover:bg-gray-50">
+          <form
+            action={async () => {
+              "use server";
+              await signOut();
+            }}
+          >
+            <button className="mt-4 w-full text-black">Sign out</button>
+          </form>
+        </div>
       </div>
     </div>
   );

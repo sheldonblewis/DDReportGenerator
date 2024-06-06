@@ -10,14 +10,13 @@ import { IsUnderConstruction } from '@/app/lib/definitions';
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  if (!IsUnderConstruction && status === 'unauthenticated') return  (
+  if (!IsUnderConstruction) return  (
     <main>
       
         {/* Home Page Landing - section */}
         <section className="bg-gray-100 border-b border-2 border-gray-300 min-h-screen">
 
           <Header />
-
           <div className="relative isolate px-6 pt-14 lg:px-8">
             {/* <div
               className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
