@@ -25,8 +25,10 @@ const pool = new Pool({
 
 async function getUser(email: string): Promise<User | undefined> {
   try {
+    console.log(pool);
     const client = await pool.connect();
     const user = await client.query(`SELECT * FROM users WHERE email='${email}'`)
+    console.log(user);
     client.release(true);
     return user.rows[0];
   } catch (error) {
