@@ -19,6 +19,9 @@ const config: Config = {
       },
       colors: {
         equitaryPrimary: '#507FF4'
+      },
+      gridTemplateColumns: {
+        '13': 'repeat(13, minmax(0, 1fr))',
       }
     },
   },

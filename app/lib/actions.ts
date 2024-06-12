@@ -46,7 +46,7 @@ export async function createJob(prevState: State, formData: FormData) {
       message: 'Missing Fields. Failed to Create Job.',
     };
   }
-  console.log(validatedFields.data);
+  
 
   // Prepare data for insertion into the database
   const { incomeStatement, balanceSheet, cashFlowStatement } = validatedFields.data;
@@ -56,16 +56,13 @@ export async function createJob(prevState: State, formData: FormData) {
   const encodedBalanceSheet = encodeURIComponent(balanceSheet.name);
   const encodedCfStatement = encodeURIComponent(cashFlowStatement.name);
 
-  // if (incomeStatement || balanceSheet || cashFlowStatement) {
-    // wixLocation.to(`/due-diligence-report-page?income_statement=${encodedIncomeStatement}&balance_sheet=${encodedBalanceSheet}&cf_statement=${encodedCfStatement}`);
-    revalidatePath(`/due-diligence-report-page?income_statement=${encodedIncomeStatement}&balance_sheet=${encodedBalanceSheet}&cf_statement=${encodedCfStatement}`);
-    redirect(`/due-diligence-report-page?income_statement=${encodedIncomeStatement}&balance_sheet=${encodedBalanceSheet}&cf_statement=${encodedCfStatement}`);
-  // }
+  revalidatePath(`/dashboard/due-diligence-report?income_statement=${encodedIncomeStatement}&balance_sheet=${encodedBalanceSheet}&cf_statement=${encodedCfStatement}`);
+  redirect(`/dashboard/due-diligence-report?income_statement=${encodedIncomeStatement}&balance_sheet=${encodedBalanceSheet}&cf_statement=${encodedCfStatement}`);
   
   // Insert data into the database
   // try {
   //   await sql`
-  //     INSERT INTO invoices (customer_id, amount, status, date)
+  //     INSERT INTO jobs (customer_id, amount, status, date)
   //     VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
   //   `;
   // } catch (error) {
