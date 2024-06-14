@@ -10,7 +10,7 @@ import { IsUnderConstruction } from '@/app/lib/definitions';
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  if (!IsUnderConstruction) return  (
+  return  (
     <main>
       
         {/* Home Page Landing - section */}
@@ -247,8 +247,5 @@ export default function Home() {
 
         <Footer />
     </main>
-  ) 
-  else return (
-    <UnderConstruction />
-  );
+  )
 }
