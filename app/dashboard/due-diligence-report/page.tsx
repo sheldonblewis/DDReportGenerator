@@ -21,10 +21,10 @@ export default async function Page() {
 
   return (
     <main className='min-h-screen'>
-      <h1 className={`mb-4 text-xl md:text-2xl text-black`}>
+      <h1 className={`mb-4 text-xl md:text-2xl text-black hidden`}>
         Report
       </h1>
-      <div className="mt-6 grid grid-cols-1">
+      <div className="mt-32 grid grid-cols-1">
         {/* <Suspense fallback={<RevenueChartSkeleton />}>
           <RevenueChart />
         </Suspense> */}
