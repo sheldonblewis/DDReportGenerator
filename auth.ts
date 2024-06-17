@@ -1,43 +1,66 @@
-// import NextAuth from 'next-auth';
-// import Credentials from 'next-auth/providers/credentials';
-// import bcrypt from 'bcrypt';
-// import { sql } from '@vercel/postgres';
-// import { z } from 'zod';
-// import type { User } from '@/app/lib/definitions';
-// import { authConfig } from './auth.config';
+import NextAuth from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
+const bcrypt = require('bcrypt');
+import { z } from 'zod';
+import type { User } from '@/app/lib/definitions';
+import { authConfig } from './auth.config';
+import pg from 'pg'
+const { Pool } = pg
 
-// async function getUser(email: string): Promise<User | undefined> {
-//   try {
-//     const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
-//     return user.rows[0];
-//   } catch (error) {
-//     console.error('Failed to fetch user:', error);
-//     throw new Error('Failed to fetch user.');
-//   }
-// }
+const pool = new Pool({
+  user: 'postgres',
+  password: process.env.NEXT_PUBLIC_POSTGRES_PASSWORD,
+  host: process.env.NEXT_PUBLIC_POSTGRES_HOST,
+  port: 5432,
+  database: 'postgres',
+  max: 5,
+  connectionTimeoutMillis: 20000,
+  idleTimeoutMillis: 20000,
+  allowExitOnIdle: true,
+  ssl: {
+    rejectUnauthorized: false
+  }
+})
 
-// export const { auth, signIn, signOut } = NextAuth({
-//   ...authConfig,
-//   providers: [
-//     Credentials({
-//       async authorize(credentials) {
-//         const parsedCredentials = z
-//           .object({ email: z.string().email(), password: z.string().min(6) })
-//           .safeParse(credentials);
 
-//         if (parsedCredentials.success) {
-//           const { email, password } = parsedCredentials.data;
+async function getUser(email: string): Promise<User | undefined> {
+  try {
+    console.log(pool);
+    const client = await pool.connect();
+    const user = await client.query(`SELECT * FROM users WHERE email='${email}'`)
+    console.log(user);
+    client.release(true);
+    return user.rows[0];
+  } catch (error) {
+    console.error('Failed to fetch user:', error);
+    throw new Error('Failed to fetch user.');
+  }
+}
 
-//           const user = await getUser(email);
-//           if (!user) return null;
+export const { auth, signIn, signOut } = NextAuth({
+  ...authConfig,
+  providers: [
+    Credentials({
+      async authorize(credentials) {
+        const parsedCredentials = z
+          .object({ email: z.string().email(), password: z.string().min(6) })
+          .safeParse(credentials);
 
-//           const passwordsMatch = await bcrypt.compare(password, user.password);
-//           if (passwordsMatch) return user;
-//         }
+        if (parsedCredentials.success) {
+          const { email, password } = parsedCredentials.data;
 
-//         console.log('Invalid credentials');
-//         return null;
-//       },
-//     }),
-//   ],
-// });
+          const user = await getUser(email);
+          if (!user) return null;
+
+          const passwordsMatch = await bcrypt.compare(password, user.password);
+          console.log(`password match: ${passwordsMatch} ${user}`);
+          
+          if (passwordsMatch) return user;
+        }
+
+        console.log('Invalid credentials');
+        return null;
+      },
+    }),
+  ],
+});
