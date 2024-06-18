@@ -92,13 +92,15 @@ export default async function RevenueChart() {
   await new Promise((resolve) => setTimeout(resolve, 3000));
   return (
     <div className="grid grid-cols-2 gap-12 px-12">
-            <div className="p-8 border border-gray-300 bg-white rounded-3xl flex flex-col justify-center leading-normal col-span-2">
+
+            <iframe src="/static/files/Equitary-Due-Dilligence-Template.pdf" frameBorder="0" className='w-full h-screen col-span-2'></iframe>
+            {/* <div className="p-8 border border-gray-300 bg-white rounded-3xl flex flex-col justify-center leading-normal col-span-2">
                 <div>
                   <div className="text-gray-900 flex flex-row justify-between p-8 pl-0">
                     <span className='text-xl'>Report</span>
                     <a className='flex flex-wrap gap-2 items-center justify-center rounded-md bg-equitaryPrimary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-equitaryPrimaryHover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
                         key="reportDownload"
-                        href='../../../public/example.pdf'
+                        href='/static/files/example.pdf'
                         download='DDReport.pdf'
                         target='_blank'
                     >
@@ -119,7 +121,7 @@ export default async function RevenueChart() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </div> */}
     </div>
   );
 }

@@ -40,13 +40,13 @@ export default function SideNav() {
           </Link>
           <Link className="mt-2 flex flex-wrap gap-2 items-center justify-start w-full text-gray-500 hover:text-gray-700"
           href=""
-          key="">
+          key="Settings">
             <Cog8ToothIcon className="pointer-events-none h-[24px] w-[24px]"/>
             Settings
           </Link>
           <Link className="mt-2 flex flex-wrap gap-2 items-center justify-start w-full text-gray-500 hover:text-gray-700"
           href=""
-          key="">
+          key="User">
             <UserCircleIcon className="pointer-events-none h-[24px] w-[24px]"/>
             PartnerAccess@Equitary.ai
           </Link>

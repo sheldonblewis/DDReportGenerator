@@ -5,10 +5,14 @@ import type { NextRequest } from 'next/server'
 export default NextAuth(authConfig).auth;
  
 export function middleware(request: NextRequest) {
-  const currentUser = request.cookies.get('authjs.session-token')?.value  
+  const currentUser = request.cookies.get('authjs.session-token')?.value // is user signed in, temporary partnerAccess authentification
  
-  if (currentUser && !request.nextUrl.pathname.startsWith('/dashboard')) {
-    return Response.redirect(new URL('/dashboard', request.url))
+  // disable only these pages, leaves static assets reachable. All unknown pages will reach 404.
+  const disabledPages = ['about', 'register', 'contact', 'community', 'pricing', 'login']
+  for (let i = 0; i < disabledPages.length; i++) {
+    if (currentUser && request.nextUrl.pathname.startsWith(`/${disabledPages[i]}`) || request.nextUrl.pathname.length === 1) {
+      return Response.redirect(new URL('/dashboard', request.url))
+    }
   }
  
   if (!currentUser && !request.nextUrl.pathname.startsWith('/login')) {
@@ -17,6 +21,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
   matcher: ['/((?!api|_next/static|_next/image|.*\\.svg$).*)'],
 };
