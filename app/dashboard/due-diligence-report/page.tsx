@@ -7,31 +7,24 @@ import {
 import Link from 'next/link';
 import Image from 'next/image'
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
-import { saveAs } from "file-saver";
 
 export default async function Page() {
-    const saveFile = () => {
-        saveAs(
-          "../download/Equitary-Due-Dilligence-Template.pptx",
-          "DDReport.pptx"
-        );
-      };
 
   const date = new Date().toISOString().split('T')[0];
 
   return (
-    <main className='min-h-screen'>
+    <div className='flex justify-center items-center'>
       <h1 className={`mb-4 text-xl md:text-2xl text-black hidden`}>
         Report
       </h1>
-      <div className="mt-32 grid grid-cols-1">
-        {/* <Suspense fallback={<RevenueChartSkeleton />}>
+      <div className="grid grid-cols-1 w-full">
+        <Suspense fallback={<RevenueChartSkeleton />}>
           <RevenueChart />
-        </Suspense> */}
+        </Suspense>
+
+
         {/* Download mock PDF */}
-        {/* Cards */}
-        <div className="grid grid-cols-2 gap-12 px-12">
-            {/* Card One */}
+        {/* <div className="grid grid-cols-2 gap-12 px-12">
             <div className="p-8 border border-gray-300 bg-white rounded-3xl flex flex-col justify-center leading-normal col-span-2">
                 <div>
                   <div className="text-gray-900 flex flex-row justify-between p-8 pl-0">
@@ -59,15 +52,9 @@ export default async function Page() {
                     </p>
                   </div>
                 </div>
-                {/* <div className="flex items-center">
-                  <div className="text-sm">
-                    <p className="text-gray-900 leading-none">Jonathan Reinink</p>
-                    <p className="text-gray-600">Aug 18</p>
-                  </div>
-                </div> */}
               </div>
-          </div>
+        </div> */}
       </div>
-    </main>
+    </div>
   );
 }

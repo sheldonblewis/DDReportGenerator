@@ -31,3 +31,25 @@ body {
     text-wrap: balance;
   }
 }
+
+.loader {
+  height: 8px;
+  width: 130px;
+  background-color: #D0D0D0;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.bar {
+  position: relative;
+  width: 30%;
+  height: 8px;
+  background-color: white;
+  border-radius: 10px;
+  animation: loadingBar 2s linear infinite;
+}
+
+@keyframes loadingBar {
+  0% { left: -30% }
+  100% {left: 130%}
+}
