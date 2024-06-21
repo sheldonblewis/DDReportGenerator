@@ -5,15 +5,32 @@ import {
   ScaleIcon,
   CurrencyDollarIcon,
   BanknotesIcon,
-  CloudArrowUpIcon
+  CloudArrowUpIcon,
+  CheckCircleIcon
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import { createJob } from '@/app/lib/actions';
 import { useFormState } from 'react-dom';
+import { useState } from 'react';
 
 export default function Form() {
   const initialState = { message: "", errors: {} };
   const [state, dispatch] = useFormState(createJob, initialState);
+
+  const [incomeStatementUploaded, setIncomeStatementUploaded] = useState(false);
+  const [balanceSheetUploaded, setBalanceSheetUploaded] = useState(false);
+  const [cashFlowStatementUploaded, setCashFlowStatementUploaded] = useState(false);
+  const [cimReportUploaded, setCimReportUploaded] = useState(false);
+
+  const handleFileUpload = (event, setUploaded) => {
+    const file = event.target.files[0];
+    if (file) {
+      setUploaded(true);
+    } else {
+      setUploaded(false);
+    }
+  };
+
   return (
     <form action={dispatch}>
       <h1 className='text-xl font-bold text-black mb-4'>Upload Files</h1>
@@ -21,13 +38,18 @@ export default function Form() {
       {/* Income Statement */}
       <div className="mb-4">
         <div className="flex items-center justify-center w-full">
-          <label htmlFor="incomeStatement" className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-200 hover:bg-gray-300 hover:border-gray-400">
+          <label htmlFor="incomeStatement" className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-200 hover:bg-gray-300 hover:border-gray-400 relative">
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
               <CloudArrowUpIcon className="w-8 h-8 mb-4 text-gray-600" aria-hidden="true"/>
               <p className="mb-2 text-sm text-gray-600">Click to upload <span className="font-semibold">Income Statement</span> or drag and drop</p>
               <p className="text-xs text-gray-600">Supported file Type: .XLSX</p>
             </div>
-            <input id="incomeStatement" type="file" className="hidden" name='incomeStatement' />
+            <input id="incomeStatement" type="file" className="hidden" name='incomeStatement' onChange={(e) => handleFileUpload(e, setIncomeStatementUploaded)} />
+            {incomeStatementUploaded && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <CheckCircleIcon className="w-10 h-10 text-green-500" />
+              </div>
+            )}
           </label>
         </div>
       </div>
@@ -35,13 +57,18 @@ export default function Form() {
       {/* Balance Sheet */}
       <div className="mb-4">
         <div className="flex items-center justify-center w-full">
-          <label htmlFor="balanceSheet" className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-200 hover:bg-gray-300 hover:border-gray-400">
+          <label htmlFor="balanceSheet" className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-200 hover:bg-gray-300 hover:border-gray-400 relative">
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
               <CloudArrowUpIcon className="w-8 h-8 mb-4 text-gray-600" aria-hidden="true"/>
               <p className="mb-2 text-sm text-gray-600">Click to upload <span className="font-semibold">Balance Sheet</span> or drag and drop</p>
               <p className="text-xs text-gray-600">Supported file Type: .XLSX</p>
             </div>
-            <input id="balanceSheet" type="file" className="hidden" name='balanceSheet' />
+            <input id="balanceSheet" type="file" className="hidden" name='balanceSheet' onChange={(e) => handleFileUpload(e, setBalanceSheetUploaded)} />
+            {balanceSheetUploaded && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <CheckCircleIcon className="w-10 h-10 text-green-500" />
+              </div>
+            )}
           </label>
         </div>
       </div>
@@ -49,13 +76,18 @@ export default function Form() {
       {/* Cashflow Statement */}
       <div className="mb-4">
         <div className="flex items-center justify-center w-full">
-          <label htmlFor="cashFlowStatement" className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-200 hover:bg-gray-300 hover:border-gray-400">
+          <label htmlFor="cashFlowStatement" className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-200 hover:bg-gray-300 hover:border-gray-400 relative">
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
               <CloudArrowUpIcon className="w-8 h-8 mb-4 text-gray-600" aria-hidden="true"/>
               <p className="mb-2 text-sm text-gray-600">Click to upload <span className="font-semibold">Cash Flow Statement</span> or drag and drop</p>
               <p className="text-xs text-gray-600">Supported file Type: .XLSX</p>
             </div>
-            <input id="cashFlowStatement" type="file" className="hidden" name='cashFlowStatement' />
+            <input id="cashFlowStatement" type="file" className="hidden" name='cashFlowStatement' onChange={(e) => handleFileUpload(e, setCashFlowStatementUploaded)} />
+            {cashFlowStatementUploaded && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <CheckCircleIcon className="w-10 h-10 text-green-500" />
+              </div>
+            )}
           </label>
         </div>
       </div>
@@ -63,13 +95,18 @@ export default function Form() {
       {/* CIM Report */}
       <div className="mb-4">
         <div className="flex items-center justify-center w-full">
-          <label htmlFor="cimReport" className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-200 hover:bg-gray-300 hover:border-gray-400">
+          <label htmlFor="cimReport" className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-200 hover:bg-gray-300 hover:border-gray-400 relative">
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
               <CloudArrowUpIcon className="w-8 h-8 mb-4 text-gray-600" aria-hidden="true"/>
               <p className="mb-2 text-sm text-gray-600">Click to upload <span className="font-semibold">CIM Report</span> or drag and drop</p>
               <p className="text-xs text-gray-600">Supported file Type: .PDF</p>
             </div>
-            <input id="cimReport" type="file" className="hidden" name='cimReport' />
+            <input id="cimReport" type="file" className="hidden" name='cimReport' onChange={(e) => handleFileUpload(e, setCimReportUploaded)} />
+            {cimReportUploaded && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <CheckCircleIcon className="w-10 h-10 text-green-500" />
+              </div>
+            )}
           </label>
         </div>
       </div>
