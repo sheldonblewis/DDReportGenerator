@@ -18,24 +18,28 @@ export default function Form() {
   const initialState = { message: "", errors: {} };
   const [state, dispatch] = useFormState(createJob, initialState);
 
-  const [incomeStatement, setincomeStatement] = useState("");
+  const [incomeStatement, setIncomeStatement] = useState("");
   const [balanceSheet, setBalanceSheet] = useState("");
   const [cashFlowStatement, setCashFlowStatement] = useState("");
-  const [cimStatement, setcimStatement] = useState("");
+  const [cimStatement, setCimStatement] = useState("");
 
-  const handleChange = (event: any) => {
-    switch (event.target.name) {
-      case "incomeStatement":
-        setincomeStatement(event.target.value);
-        break;
-      case "balanceSheet":
-        setBalanceSheet(event.target.value);
-        break;
-      case "cashFlowStatement":
-        setCashFlowStatement(event.target.value);
-        break;
-      case "cimStatement":
-        setcimStatement(event.target.value);
+  const handleChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      switch (event.target.name) {
+        case "incomeStatement":
+          setIncomeStatement(file.name);
+          break;
+        case "balanceSheet":
+          setBalanceSheet(file.name);
+          break;
+        case "cashFlowStatement":
+          setCashFlowStatement(file.name);
+          break;
+        case "cimStatement":
+          setCimStatement(file.name);
+          break;
+      }
     }
   };
 
@@ -56,7 +60,7 @@ export default function Form() {
                     <CloudArrowUpIcon  className="w-8 h-8 mb-4 text-gray-600" aria-hidden="true"/>
                   }
                   {incomeStatement && 
-                    <CheckCircleIcon  className="w-8 h-8 mb-4 text-equitaryPrimary" aria-hidden="true"/>
+                    <CheckCircleIcon  className="w-8 h-8 mb-4 text-green-500" aria-hidden="true"/>
                   }
                     <p className="mb-2 text-sm text-gray-600">Click to upload <span className="font-semibold">Income Statement</span> or drag and drop</p>
                     {!incomeStatement &&
@@ -69,15 +73,6 @@ export default function Form() {
                 <input id="incomeStatement" type="file" className="hidden" name='incomeStatement' accept='.xlsx' required onChange={handleChange}/>
             </label>
           </div>
-
-          {/* <div id="incomeSatement-error" aria-live="polite" aria-atomic="true">
-            {state.errors?.incomeStatement &&
-              state.errors.incomeStatement.map((error: string) => (
-                <p className="mt-2 text-sm text-red-500" key={error}>
-                  {error}
-                </p>
-              ))}
-          </div> */}
         </div>
 
         {/* Balance Sheet */}
@@ -94,7 +89,7 @@ export default function Form() {
                     <CloudArrowUpIcon  className="w-8 h-8 mb-4 text-gray-600" aria-hidden="true"/>
                   }
                   {balanceSheet && 
-                    <CheckCircleIcon  className="w-8 h-8 mb-4 text-equitaryPrimary" aria-hidden="true"/>
+                    <CheckCircleIcon  className="w-8 h-8 mb-4 text-green-500" aria-hidden="true"/>
                   }
                     <p className="mb-2 text-sm text-gray-600">Click to upload <span className="font-semibold">Balance Sheet</span> or drag and drop</p>
                     {!balanceSheet &&
@@ -107,15 +102,6 @@ export default function Form() {
                 <input id="balanceSheet" type="file" className="hidden" name='balanceSheet' accept='.xlsx' required onChange={handleChange}/>
             </label>
           </div>
-
-          {/* <div id="incomeSatement-error" aria-live="polite" aria-atomic="true">
-            {state.errors?.balanceSheet &&
-              state.errors.balanceSheet.map((error: any) => (
-                <p className="mt-2 text-sm text-red-500" key={error}>
-                  {error}
-                </p>
-              ))}
-          </div> */}
         </div>
 
         {/* Cashflow Statement */}
@@ -132,7 +118,7 @@ export default function Form() {
                     <CloudArrowUpIcon  className="w-8 h-8 mb-4 text-gray-600" aria-hidden="true"/>
                   }
                   {cashFlowStatement && 
-                    <CheckCircleIcon  className="w-8 h-8 mb-4 text-equitaryPrimary" aria-hidden="true"/>
+                    <CheckCircleIcon  className="w-8 h-8 mb-4 text-green-500" aria-hidden="true"/>
                   }
                     <p className="mb-2 text-sm text-gray-600">Click to upload <span className="font-semibold">Cash Flow Statement</span> or drag and drop</p>
                     {!cashFlowStatement &&
@@ -145,6 +131,7 @@ export default function Form() {
                 <input id="cashFlowStatement" type="file" className="hidden" name='cashFlowStatement' accept='.xlsx' required onChange={handleChange}/>
             </label>
           </div>
+        </div>
 
         {/* CIM Statement */}
         <div className="mb-4">
@@ -160,7 +147,7 @@ export default function Form() {
                     <CloudArrowUpIcon  className="w-8 h-8 mb-4 text-gray-600" aria-hidden="true"/>
                   }
                   {cimStatement && 
-                    <CheckCircleIcon  className="w-8 h-8 mb-4 text-equitaryPrimary" aria-hidden="true"/>
+                    <CheckCircleIcon  className="w-8 h-8 mb-4 text-green-500" aria-hidden="true"/>
                   }
                     <p className="mb-2 text-sm text-gray-600">Click to upload <span className="font-semibold">CIM Statement</span> or drag and drop</p>
                     {!cimStatement &&
@@ -170,18 +157,9 @@ export default function Form() {
                       <p className="text-xs text-gray-600">CIM Statement uploaded!</p>
                     }
                 </div>
-                <input id="cimStatement" type="file" className="hidden" name='cimStatement' accept='.xlsx' required onChange={handleChange}/>
+                <input id="cimStatement" type="file" className="hidden" name='cimStatement' accept='.pdf' required onChange={handleChange}/>
             </label>
           </div>
-
-          {/* <div id="incomeSatement-error" aria-live="polite" aria-atomic="true">
-            {state.errors?.balanceSheet &&
-              state.errors.balanceSheet.map((error: any) => (
-                <p className="mt-2 text-sm text-red-500" key={error}>
-                  {error}
-                </p>
-              ))}
-          </div> */}
         </div>
 
         <h2 className='text-xl font-bold text-black mb-4'>Thesis Statement</h2>
