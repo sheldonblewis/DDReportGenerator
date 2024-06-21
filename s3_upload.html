@@ -34,35 +34,55 @@
             background-color: #fd6262a6;
         }
         #notification {
-            display: none; /* Hide the notification element initially */
+            display: none;
             margin-top: 20px;
             text-align: center;
+        }
+        .file-label {
+            position: relative;
+        }
+        .check-mark {
+            display: none;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            color: green;
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
     <h2>Upload Files</h2>
     <form action="" method="post" enctype="multipart/form-data" target="_self">
-        <label for="balSheet">Balance Sheet:</label>
-        <input type="file" id="balSheet" name="balSheet"><br><br>
-        <label for="incStatement">Income Statement:</label>
-        <input type="file" id="incStatement" name="incStatement"><br><br>
-        <label for="cfStatement">Cash Flow Statement:</label>
-        <input type="file" id="cfStatement" name="cfStatement"><br><br>
-        <label for="cimReport">CIM Report:</label>
-        <input type="file" id="cimReport" name="cimReport"><br><br>
+        <label for="balSheet" class="file-label">Balance Sheet:
+            <input type="file" id="balSheet" name="balSheet">
+            <span class="check-mark">&#10004;</span>
+        </label>
+        <label for="incStatement" class="file-label">Income Statement:
+            <input type="file" id="incStatement" name="incStatement">
+            <span class="check-mark">&#10004;</span>
+        </label>
+        <label for="cfStatement" class="file-label">Cash Flow Statement:
+            <input type="file" id="cfStatement" name="cfStatement">
+            <span class="check-mark">&#10004;</span>
+        </label>
+        <label for="cimReport" class="file-label">CIM Report:
+            <input type="file" id="cimReport" name="cimReport">
+            <span class="check-mark">&#10004;</span>
+        </label>
         <input type="submit" value="Upload">
     </form>
-    <div id="notification"></div> <!-- Notification element -->
+    <div id="notification"></div>
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
             var form = document.querySelector('form');
             var notification = document.getElementById('notification');
-            
+
             form.onsubmit = function(event) {
-                event.preventDefault(); // Prevent the default form submission
+                event.preventDefault();
                 postUploadStart();
-    
+
                 var formData = new FormData(form);
                 fetch(form.action, {
                     method: 'POST',
@@ -71,7 +91,6 @@
                 .then(response => {
                     if (response.ok) {
                         notifyUser('Upload complete. Processing data...');
-                        // Optionally, hide the form or notify the user that the process is complete
                         window.parent.postMessage({ status: 'uploadCompleted' }, '*');
                     } else {
                         notifyUser('Upload failed. Please try again.');
@@ -80,23 +99,33 @@
                 })
                 .catch(error => {
                     notifyUser('Error during upload. Please check your connection.');
-                    console.error('Error:', error)
+                    console.error('Error:', error);
                 });
             };
+
+            var fileInputs = document.querySelectorAll('input[type="file"]');
+            fileInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    var checkMark = this.nextElementSibling;
+                    if (this.files.length > 0) {
+                        checkMark.style.display = 'inline';
+                    } else {
+                        checkMark.style.display = 'none';
+                    }
+                });
+            });
         });
-    
+
         function postUploadStart() {
-            // Notify the user that the upload process has started
             notifyUser('Upload started. Please wait...');
-            // Notify the parent window that the upload process has started
             window.parent.postMessage({ status: 'uploadStarted' }, '*');
         }
 
         function notifyUser(message) {
             var notification = document.getElementById('notification');
             notification.textContent = message;
-            notification.style.display = 'block'; // Show the notification element with the message
+            notification.style.display = 'block';
         }
-    </script>    
+    </script>
 </body>
 </html>
