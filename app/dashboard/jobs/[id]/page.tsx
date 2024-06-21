@@ -45,11 +45,7 @@ export default function Form() {
               <p className="text-xs text-gray-600">Supported file Type: .XLSX</p>
             </div>
             <input id="incomeStatement" type="file" className="hidden" name='incomeStatement' onChange={(e) => handleFileUpload(e, setIncomeStatementUploaded)} />
-            {incomeStatementUploaded && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <CheckCircleIcon className="w-10 h-10 text-green-500" />
-              </div>
-            )}
+            {incomeStatementUploaded && <CheckCircleIcon className="absolute top-2 right-2 w-6 h-6 text-green-500" />}
           </label>
         </div>
       </div>
@@ -64,11 +60,7 @@ export default function Form() {
               <p className="text-xs text-gray-600">Supported file Type: .XLSX</p>
             </div>
             <input id="balanceSheet" type="file" className="hidden" name='balanceSheet' onChange={(e) => handleFileUpload(e, setBalanceSheetUploaded)} />
-            {balanceSheetUploaded && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <CheckCircleIcon className="w-10 h-10 text-green-500" />
-              </div>
-            )}
+            {balanceSheetUploaded && <CheckCircleIcon className="absolute top-2 right-2 w-6 h-6 text-green-500" />}
           </label>
         </div>
       </div>
@@ -83,11 +75,7 @@ export default function Form() {
               <p className="text-xs text-gray-600">Supported file Type: .XLSX</p>
             </div>
             <input id="cashFlowStatement" type="file" className="hidden" name='cashFlowStatement' onChange={(e) => handleFileUpload(e, setCashFlowStatementUploaded)} />
-            {cashFlowStatementUploaded && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <CheckCircleIcon className="w-10 h-10 text-green-500" />
-              </div>
-            )}
+            {cashFlowStatementUploaded && <CheckCircleIcon className="absolute top-2 right-2 w-6 h-6 text-green-500" />}
           </label>
         </div>
       </div>
@@ -102,11 +90,7 @@ export default function Form() {
               <p className="text-xs text-gray-600">Supported file Type: .PDF</p>
             </div>
             <input id="cimReport" type="file" className="hidden" name='cimReport' onChange={(e) => handleFileUpload(e, setCimReportUploaded)} />
-            {cimReportUploaded && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <CheckCircleIcon className="w-10 h-10 text-green-500" />
-              </div>
-            )}
+            {cimReportUploaded && <CheckCircleIcon className="absolute top-2 right-2 w-6 h-6 text-green-500" />}
           </label>
         </div>
       </div>
