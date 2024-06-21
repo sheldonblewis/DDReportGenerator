@@ -14,11 +14,12 @@ $w.onReady(function () {
     let incomeStatement = wixLocation.query.income_statement;
     let balanceSheet = wixLocation.query.balance_sheet;
     let cfStatement = wixLocation.query.cf_statement;
+    let cimReport = wixLocation.query.cim_report;
 
     // Ensure all required financial statements are present
-    if (incomeStatement && balanceSheet && cfStatement) {
+    if (incomeStatement && balanceSheet && cfStatement && cimReport) {
         // Construct the URL for the iframe src using the decoded query parameters
-        let reportUrl = `https://equitary-reports.ngrok.io/generate_economic_report?income_statement_text=${incomeStatement}&balance_sheet_text=${balanceSheet}&cash_flow_statement_text=${cfStatement}`;
+        let reportUrl = `https://equitary-reports.ngrok.io/generate_economic_report?income_statement_text=${incomeStatement}&balance_sheet_text=${balanceSheet}&cash_flow_statement_text=${cfStatement}&cim_report_text=${cimReport}`;
         $w("#html1").src = reportUrl;
 
         // Listen for a message indicating that the report is ready
