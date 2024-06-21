@@ -38,39 +38,19 @@
             margin-top: 20px;
             text-align: center;
         }
-        .file-input-wrapper {
-            position: relative;
-        }
-        .checkmark {
-            display: none;
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            color: green;
-            font-size: 24px;
-        }
     </style>
 </head>
 <body>
     <h2>Upload Files</h2>
     <form action="" method="post" enctype="multipart/form-data" target="_self">
-        <div class="file-input-wrapper">
-            <label for="balSheet">Balance Sheet:</label>
-            <input type="file" id="balSheet" name="balSheet" accept=".xlsx"><span class="checkmark">&#10003;</span><br><br>
-        </div>
-        <div class="file-input-wrapper">
-            <label for="incStatement">Income Statement:</label>
-            <input type="file" id="incStatement" name="incStatement" accept=".xlsx"><span class="checkmark">&#10003;</span><br><br>
-        </div>
-        <div class="file-input-wrapper">
-            <label for="cfStatement">Cash Flow Statement:</label>
-            <input type="file" id="cfStatement" name="cfStatement" accept=".xlsx"><span class="checkmark">&#10003;</span><br><br>
-        </div>
-        <div class="file-input-wrapper">
-            <label for="cimReport">CIM Report:</label>
-            <input type="file" id="cimReport" name="cimReport" accept=".pdf"><span class="checkmark">&#10003;</span><br><br>
-        </div>
+        <label for="balSheet">Balance Sheet:</label>
+        <input type="file" id="balSheet" name="balSheet"><br><br>
+        <label for="incStatement">Income Statement:</label>
+        <input type="file" id="incStatement" name="incStatement"><br><br>
+        <label for="cfStatement">Cash Flow Statement:</label>
+        <input type="file" id="cfStatement" name="cfStatement"><br><br>
+        <label for="cimReport">CIM Report:</label>
+        <input type="file" id="cimReport" name="cimReport"><br><br>
         <input type="submit" value="Upload">
     </form>
     <div id="notification"></div> <!-- Notification element -->
@@ -78,24 +58,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             var form = document.querySelector('form');
             var notification = document.getElementById('notification');
-            var fileInputs = document.querySelectorAll('input[type="file"]');
-
-            fileInputs.forEach(function(input) {
-                input.addEventListener('change', function(event) {
-                    var file = event.target.files[0];
-                    var checkmark = input.nextElementSibling;
-                    if (file && validateFileType(input.id, file)) {
-                        checkmark.style.display = 'inline';
-                    } else {
-                        checkmark.style.display = 'none';
-                    }
-                });
-            });
-
+            
             form.onsubmit = function(event) {
                 event.preventDefault(); // Prevent the default form submission
                 postUploadStart();
-
+    
                 var formData = new FormData(form);
                 fetch(form.action, {
                     method: 'POST',
@@ -117,17 +84,7 @@
                 });
             };
         });
-
-        function validateFileType(inputId, file) {
-            var validTypes = {
-                balSheet: ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
-                incStatement: ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
-                cfStatement: ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
-                cimReport: ['application/pdf']
-            };
-            return validTypes[inputId].includes(file.type);
-        }
-
+    
         function postUploadStart() {
             // Notify the user that the upload process has started
             notifyUser('Upload started. Please wait...');
