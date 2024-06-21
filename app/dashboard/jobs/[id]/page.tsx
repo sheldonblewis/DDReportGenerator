@@ -21,6 +21,7 @@ export default function Form() {
   const [incomeStatement, setincomeStatement] = useState("");
   const [balanceSheet, setBalanceSheet] = useState("");
   const [cashFlowStatement, setCashFlowStatement] = useState("");
+  const [cimStatement, setcimStatement] = useState("");
 
   const handleChange = (event: any) => {
     switch (event.target.name) {
@@ -33,6 +34,8 @@ export default function Form() {
       case "cashFlowStatement":
         setCashFlowStatement(event.target.value);
         break;
+      case "cimStatement":
+        setcimStatement(event.target.value);
     }
   };
 
@@ -140,6 +143,34 @@ export default function Form() {
                     }
                 </div>
                 <input id="cashFlowStatement" type="file" className="hidden" name='cashFlowStatement' accept='.xlsx' required onChange={handleChange}/>
+            </label>
+          </div>
+
+        {/* CIM Statement */}
+        <div className="mb-4">
+          <div className="flex items-center justify-center w-full">
+            <label htmlFor="cimStatement" 
+              className={clsx(
+                'flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-gray-200 hover:bg-gray-300 hover:border-gray-400',
+                {'border-[#507FF4]': cimStatement},
+                {'border-gray-300': !cimStatement})}
+            >
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                {!cimStatement && 
+                    <CloudArrowUpIcon  className="w-8 h-8 mb-4 text-gray-600" aria-hidden="true"/>
+                  }
+                  {cimStatement && 
+                    <CheckCircleIcon  className="w-8 h-8 mb-4 text-equitaryPrimary" aria-hidden="true"/>
+                  }
+                    <p className="mb-2 text-sm text-gray-600">Click to upload <span className="font-semibold">CIM Statement</span> or drag and drop</p>
+                    {!cimStatement &&
+                      <p className="text-xs text-gray-600">Supported file Type: .PDF</p>
+                    }
+                    {cimStatement &&
+                      <p className="text-xs text-gray-600">CIM Statement uploaded!</p>
+                    }
+                </div>
+                <input id="cimStatement" type="file" className="hidden" name='cimStatement' accept='.xlsx' required onChange={handleChange}/>
             </label>
           </div>
 
