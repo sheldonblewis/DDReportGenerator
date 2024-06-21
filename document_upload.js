@@ -27,7 +27,7 @@ function checkForUploadCompletion() {
                     console.log("Polling for completion, but data is not ready yet.");
                 } else {
                     console.log("Data received:", data);
-                    clearInterval(intervalId); // Stop polling
+                    clearInterval(intervalId);
                     updateHtmlComponent(data);
                 }
             })
@@ -39,7 +39,6 @@ function checkForUploadCompletion() {
 }
 
 function updateHtmlComponent(data) {
-    // Trim and encode the financial statements and CIM report
     const encodedIncomeStatement = encodeURIComponent(data.incStatement.trim());
     const encodedBalanceSheet = encodeURIComponent(data.balSheet.trim());
     const encodedCfStatement = encodeURIComponent(data.cfStatement.trim());
