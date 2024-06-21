@@ -23,8 +23,8 @@ export default function Form() {
   const [cashFlowStatement, setCashFlowStatement] = useState("");
   const [cimStatement, setCimStatement] = useState("");
 
-  const handleChange = (event) => {
-    const file = event.target.files[0];
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
     if (file) {
       switch (event.target.name) {
         case "incomeStatement":
