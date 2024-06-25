@@ -3,9 +3,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import {
-  ScaleIcon,
-  CurrencyDollarIcon,
-  BanknotesIcon,
   CheckCircleIcon,
   CloudArrowUpIcon
 } from '@heroicons/react/24/outline';
