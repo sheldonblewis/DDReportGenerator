@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Equitary Repository
+
+Welcome to the official repository of Equitary Inc., which houses the codebase for our automated due-diligence report builder. This repository contains a collection of Python scripts and JavaScript files crucial for generating and managing due-diligence reports based on financial statements and metrics.
+
+## Repository Structure
+
+Below is a brief overview of the key components in the repository:
+
+### Python Scripts
+
+- **`dd_prod_gpt4_vanilla.py`**: This is the main production script. It uses the OpenAI API to generate due diligence reports by processing three distinct financial reports (income statement, cash flow statement, balance sheet) provided in CSV format, along with various financial metrics.
+
+- **`dd_app_localhost_gpt4_vanilla.py`**: Utilized for local testing of the production script. It helps ensure that any new changes to the main script function as expected before being deployed.
+
+- **`dd_machinetest_gpt4_vanilla.py`**: This script is intended for experimental features that may not perform correctly in a local environment. It is not recommended for regular testing.
+
+- **`s3_upload.py`**: Handles the uploading of financial documents to an AWS S3 bucket. Following upload, these documents are converted to CSV via `xls_to_csv.py`, stored in a database with `s3_to_db.py`, and the S3 bucket is subsequently cleared.
+
+- **`s3_upload_localhost.py`**: Used for local development testing of the S3 upload functionalities before they are implemented in the production environment.
+
+- **`xls_to_csv.py`**: Converts files from XLS format to CSV using the CloudConvert API after they are uploaded to S3.
+
+- **`s3_to_db_new.py`**: Transfers the CSV files from S3 to a database table, clears the S3 bucket after transfer, and prepares the data for further processing.
+
+### JavaScript Files
+
+- **`document_upload.js`**: Manages the frontend functionalities related to document uploads on a Wix site.
+
+- **`due_diligence_report.js`**: Manages the display functionalities for the due diligence reports on the frontend.
+
+### Folders
+
+- **`templates`**: Contains HTML/CSS templates that are used by the frontend for the s3 upload and the due diligence report generation functionalities.
 
 ## Getting Started
 
-First, run the development server:
+To get started with the Equitary repository, clone the repository and install necessary dependencies.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/equitary/equitary.git
+cd equitary
+pip install -r requirements.txt
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- To run the main production script:
+```bash
+python dd_prod_gpt4_vanilla.py
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- For testing changes locally before production:
+```bash
+python dd_app_localhost_gpt4_vanilla.py
+```
 
-## Learn More
+## Contributing
 
-To learn more about Next.js, take a look at the following resources:
+We welcome contributions from the community. Before submitting your contribution, please ensure you have completed the following steps:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Fork the repository.
+2. Create a new branch for your feature.
+3. Add your changes and commit them.
+4. Push your branch and submit a pull request.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Support
 
-## Deploy on Vercel
+For any questions or issues, please open an issue on the repository, and a maintainer will assist you.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the CC0 1.0 Universal License - see the [LICENSE.md](LICENSE) file for details. 
+
+This README aims to provide all necessary information for both using and contributing to the repository. For any additional information or clarification, contributors and users are encouraged to open an issue in the repository.
+
