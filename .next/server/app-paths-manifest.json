@@ -1,0 +1,6 @@
+{
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/dashboard/jobs/[id]/page": "app/dashboard/jobs/[id]/page.js",
+  "/dashboard/due-diligence-report/page": "app/dashboard/due-diligence-report/page.js",
+  "/dashboard/(overview)/page": "app/dashboard/(overview)/page.js"
+}
